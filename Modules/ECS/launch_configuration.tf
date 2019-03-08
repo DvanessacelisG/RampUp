@@ -35,14 +35,20 @@ resource "aws_instance" "jenkins" {
     connection {
             type     = "ssh"
             user     = "ubuntu"
-            private_key = "${file("./Modules/ECS/VanessaCelis.pem")}"
+            private_key = "${file("VanessaCelis.pem")}"
             host     = "${aws_instance.jenkins.public_ip}"
           }
     inline = ["sudo chown -R ubuntu: /etc"]  
   }
   provisioner "file" {
-    source      = "Modules/ECS/config.sh"
-    destination = "/config.sh"
+    connection {
+            type     = "ssh"
+            user     = "ubuntu"
+            private_key = "${file("VanessaCelis.pem")}"
+            host     = "${aws_instance.jenkins.public_ip}"
+          }
+    source      = "config.sh"
+    destination = "config.sh"
     }
 
  /*provisioner "remote-exec" {
