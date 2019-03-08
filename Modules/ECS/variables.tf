@@ -20,20 +20,15 @@ variable "public_subnetsp" {
   description = "Desired number of instances in the cluster"
   type        = "list"
 }
+
 variable "private_subnetsp" {
   description = "Desired number of instances in the cluster"
   type        = "list"
 }
-variable "vpc_name" {}
 
-variable "sg_LB" {
-  
-}
+variable "vpc_name" {}
+variable "sg_LB" {}
 
 variable "port_lb" {
-  type="list"
-  
+  type = "list"
 }
-
-
-
