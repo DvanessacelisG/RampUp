@@ -19,10 +19,11 @@ module "Network" {
 }
 
 module "ECS_Service" {
-  source            = "./modules/ECS"
-  ECR_repository    = "ecsrepo-3"
-  ECS_cluster       = "Vane_cluster"
-  ecs_aws_ami       = "ami-0ac019f4fcb7cb7e6"
+  source         = "./modules/ECS"
+  ECR_repository = "ecsrepo-3"
+  ECS_cluster    = "Vane_cluster"
+  ecs_aws_ami    = "ami-0b423c1102145ee23"
+
   instance_type     = "t2.micro"
   ecs_key_pair_name = "VanessaCelis"
   public_subnetsp   = "${module.Network.public_subnets_id}"

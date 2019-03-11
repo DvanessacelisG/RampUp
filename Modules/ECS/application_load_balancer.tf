@@ -1,4 +1,4 @@
-resource "aws_lb" "ecs-load-balancer" {
+/*resource "aws_lb" "ecs-load-balancer" {
   name    = "vane-ecs-load-balancer"
   subnets = ["${var.public_subnetsp}"]
 
@@ -29,3 +29,5 @@ resource "aws_lb_listener" "alb-listener" {
     type             = "forward"
   }
 }
+*/
+
