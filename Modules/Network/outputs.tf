@@ -1,5 +1,5 @@
 output "vpc_id" {
-  value = "${data.aws_vpc.OV_VPC.id}"
+  value = "${aws_vpc.Vane_VPC.id}"
 }
 
 output "public_subnets_id" {

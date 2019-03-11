@@ -6,7 +6,7 @@ resource "aws_autoscaling_group" "ecs-autoscaling-group-front" {
   launch_configuration = "${aws_launch_configuration.ecs-launch-configuration.name}"
   health_check_type    = "EC2"
 
-  #target_group_arns    = ["${aws_lb_target_group.ecs-target-group.arn}"]
+ # target_group_arns    = ["${aws_lb_target_group.ecs-target-group.arn}"]
 
   tags {
     key                 = "Name"

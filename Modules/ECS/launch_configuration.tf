@@ -21,7 +21,7 @@ resource "aws_launch_configuration" "ecs-launch-configuration" {
 
 /******
 Bastion instance
-*********/
+*********//*
 resource "aws_instance" "jenkins" {
   ami                         = "ami-02da3a138888ced85"
   instance_type               = "${var.instance_type}"
@@ -29,13 +29,13 @@ resource "aws_instance" "jenkins" {
   associate_public_ip_address = "true"
   subnet_id                   = "${element(var.public_subnetsp, 0)}"
   private_ip                  = "11.0.1.109"
-
+ 
   ##--------saltconfig file
   provisioner "file" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = "${file("VanessaCelis.pem")}"
+      private_key = "${file("DanielaCelis.pem")}"
       host        = "${aws_instance.jenkins.public_ip}"
     }
 
@@ -48,7 +48,7 @@ resource "aws_instance" "jenkins" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = "${file("VanessaCelis.pem")}"
+      private_key = "${file("DanielaCelis.pem")}"
       host        = "${aws_instance.jenkins.public_ip}"
     }
 
@@ -56,12 +56,13 @@ resource "aws_instance" "jenkins" {
     destination = "/home/ec2-user/jenkins_installation.sls"
   }
 
+
   ##-----------jenkins file
   provisioner "file" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = "${file("VanessaCelis.pem")}"
+      private_key = "${file("DanielaCelis.pem")}"
       host        = "${aws_instance.jenkins.public_ip}"
     }
 
@@ -74,7 +75,7 @@ resource "aws_instance" "jenkins" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = "${file("VanessaCelis.pem")}"
+      private_key = "${file("DanielaCelis.pem")}"
       host        = "${aws_instance.jenkins.public_ip}"
     }
 
@@ -87,7 +88,7 @@ resource "aws_instance" "jenkins" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = "${file("VanessaCelis.pem")}"
+      private_key = "${file("DanielaCelis.pem")}"
       host        = "${aws_instance.jenkins.public_ip}"
     }
 
@@ -95,12 +96,38 @@ resource "aws_instance" "jenkins" {
     destination = "/home/ec2-user/master"
   }
 
+  ##-----------git 
+  provisioner "file" {
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = "${file("DanielaCelis.pem")}"
+      host        = "${aws_instance.jenkins.public_ip}"
+    }
+
+    source      = "./Scripts/Git/git_installation.sls"
+    destination = "/home/ec2-user/git_installation.sls"
+  }
+  ##-----------docker file
+  provisioner "file" {
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = "${file("DanielaCelis.pem")}"
+      host        = "${aws_instance.jenkins.public_ip}"
+    }
+
+    source      = "./Scripts/Docker/docker_installation.sls"
+    destination = "/home/ec2-user/docker_installation.sls"
+  }
+
   ##--------remote-exec file
+ 
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = "${file("VanessaCelis.pem")}"
+      private_key = "${file("DanielaCelis.pem")}"
       host        = "${aws_instance.jenkins.public_ip}"
     }
 
@@ -116,12 +143,12 @@ resource "aws_instance" "jenkins" {
       "sudo yum install git -y",
       "sudo mkdir -p /srv/salt /srv/formulas /srv/pillar",
       "sudo mv jenkins_installation.sls top.sls /srv/salt/",
-      "cd /srv/formulas && sudo git clone https://github.com/saltstack-formulas/jenkins-formula.git",
+      "cd /srv/formulas && sudo git clone https://github.com/DvanessacelisG/jenkins-formula.git",
       "sudo rm /etc/salt/master",
       "sudo mv /home/ec2-user/master /etc/salt/",
       "sudo mv /home/ec2-user/jenkins.sls /srv/pillar/",
       "sudo salt-key -L",
       "sudo salt-key -A -y",
     ]
-  }
-}
+  }*/
+

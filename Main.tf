@@ -22,10 +22,10 @@ module "ECS_Service" {
   source         = "./modules/ECS"
   ECR_repository = "ecsrepo-3"
   ECS_cluster    = "Vane_cluster"
-  ecs_aws_ami    = "ami-0b423c1102145ee23"
-
+  ecs_aws_ami    = "ami-0646759d3dde03330"
+  sg_F="${module.Network.sg_lb_id}" 
   instance_type     = "t2.micro"
-  ecs_key_pair_name = "VanessaCelis"
+  ecs_key_pair_name = "DanielaCelis"
   public_subnetsp   = "${module.Network.public_subnets_id}"
   private_subnetsp  = "${module.Network.private_subnet_id}"
   vpc_name          = "${module.Network.vpc_id}"
