@@ -1,5 +1,5 @@
 resource "aws_nat_gateway" "gw" {
-  allocation_id = "${data.aws_eip.OV_EIP.id}"
+  allocation_id = "${aws_eip.Vane_eip.id}"
   subnet_id     = "${aws_subnet.public_subnet.0.id}"
 
   tags = {

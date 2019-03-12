@@ -26,6 +26,6 @@ resource "aws_iam_instance_profile" "ecs-instance-profile" {
   role = "${aws_iam_role.ecs-instance-role.name}"
 
   provisioner "local-exec" {
-    command = "sleep 10"
+    command = "sleep 60"
   }
 }

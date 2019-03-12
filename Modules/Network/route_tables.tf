@@ -1,10 +1,10 @@
 /* Routing table for private subnet */
 resource "aws_route_table" "private" {
-  vpc_id = "${data.aws_vpc.OV_VPC.id}"
+  vpc_id = "${aws_vpc.Vane_VPC.id}"
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${data.aws_internet_gateway.OV_IG.id}"
+    gateway_id = "${aws_internet_gateway.Vane_gw.id}"
   }
 
   tags {
@@ -14,11 +14,11 @@ resource "aws_route_table" "private" {
 
 /* Routing table for public subnet */
 resource "aws_route_table" "public" {
-  vpc_id = "${data.aws_vpc.OV_VPC.id}"
+  vpc_id = "${aws_vpc.Vane_VPC.id}"
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${data.aws_internet_gateway.OV_IG.id}"
+    gateway_id = "${aws_internet_gateway.Vane_gw.id}"
   }
 
   tags {

@@ -1,7 +1,7 @@
 resource "aws_autoscaling_group" "ecs-autoscaling-group-front" {
   name                 = "vane-ecs-autoscaling-group-front"
   max_size             = "2"
-  min_size             = "1"
+  min_size             = "2"
   vpc_zone_identifier  = ["${var.public_subnetsp}"]
   launch_configuration = "${aws_launch_configuration.ecs-launch-configuration.name}"
   health_check_type    = "EC2"
