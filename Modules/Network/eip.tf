@@ -7,8 +7,9 @@
 */
 
 resource "aws_eip" "Vane_eip" {
-  vpc      = true
-    tags = {
+  vpc = true
+
+  tags = {
     Name = "Vane_eip"
   }
 }

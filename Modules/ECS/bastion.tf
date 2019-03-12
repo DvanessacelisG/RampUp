@@ -1,4 +1,3 @@
-
 /******
 Bastion instance
 *********/
@@ -9,10 +8,12 @@ resource "aws_instance" "jenkins" {
   associate_public_ip_address = "true"
   subnet_id                   = "${element(var.public_subnetsp, 0)}"
   private_ip                  = "11.0.1.109"
-  security_groups             =  ["${var.sg_LB}"]
-   tags = {
+  security_groups             = ["${var.sg_LB}"]
+
+  tags = {
     Name = "vane-bastion"
   }
+
   ##--------saltconfig file
   provisioner "file" {
     connection {
@@ -78,7 +79,7 @@ resource "aws_instance" "jenkins" {
     destination = "/home/ec2-user/master"
   }
 
- ##-----------docker installation file
+  ##-----------docker installation file
   provisioner "file" {
     connection {
       type        = "ssh"
@@ -91,7 +92,7 @@ resource "aws_instance" "jenkins" {
     destination = "/home/ec2-user/docker_installation.sls"
   }
 
-##-----------docker installation file
+  ##-----------docker installation file
   provisioner "file" {
     connection {
       type        = "ssh"
@@ -104,6 +105,18 @@ resource "aws_instance" "jenkins" {
     destination = "/home/ec2-user/git_installation.sls"
   }
 
+  ##-----------docker installation file
+  provisioner "file" {
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = "${file("DanielaCelis.pem")}"
+      host        = "${aws_instance.jenkins.public_ip}"
+    }
+
+    source      = "DanielaCelis.pem"
+    destination = "/home/ec2-user/DanielaCelis.pem"
+  }
   ##--------remote-exec file
   provisioner "remote-exec" {
     connection {
@@ -125,13 +138,14 @@ resource "aws_instance" "jenkins" {
       "sudo yum install git -y",
       "sudo mkdir -p /srv/salt /srv/formulas /srv/pillar",
       "sudo mv jenkins_installation.sls top.sls /srv/salt/",
-      "cd /srv/formulas && sudo git clone https://github.com/saltstack-formulas/jenkins-formula.git",
+      "cd /srv/formulas && sudo git clone https://github.com/DvanessacelisG/jenkins-formula",
       "sudo rm /etc/salt/master",
       "sudo mv /home/ec2-user/master /etc/salt/",
       "sudo mv /home/ec2-user/jenkins.sls /srv/pillar/",
       "sudo salt-key -L",
       "sudo salt-key -A -y",
-      #"sudo mv docker_installation.sls git_installation.sls /srv/salt/",
+      "sudo mv /home/ec2-user/docker_installation.sls /srv/salt/",
+      "sudo mv /home/ec2-user/git_installation.sls /srv/salt/",
     ]
   }
 }

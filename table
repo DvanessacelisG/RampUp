@@ -1,0 +1,26 @@
+CREATE TABLE `publications` (
+  `name` varchar(250) NOT NULL,
+  `avatar` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`name`)
+);
+
+CREATE TABLE `reviewers` (
+  `name` varchar(255) NOT NULL,
+  `publication` varchar(250) DEFAULT NULL,
+  `avatar` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`name`),
+  KEY `publication_idx` (`publication`),
+  CONSTRAINT `publication` FOREIGN KEY (`publication`) REFERENCES `publications` (`name`)
+);
+
+
+CREATE TABLE `movies` (
+  `title` varchar(250) NOT NULL,
+  `release_year` varchar(250) DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
+  `reviewer` varchar(250) DEFAULT NULL,
+  `publication` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`title`),
+  KEY `reviewer_idx` (`reviewer`),
+  CONSTRAINT `reviewer` FOREIGN KEY (`reviewer`) REFERENCES `reviewers` (`name`)
+);

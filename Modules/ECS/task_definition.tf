@@ -41,3 +41,4 @@ resource "aws_ecs_task_definition" "wordpress" {
 DEFINITION
 }
 */
+

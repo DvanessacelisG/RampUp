@@ -11,7 +11,8 @@
 
 resource "aws_vpc" "Vane_VPC" {
   cidr_block = "11.0.0.0/16"
-    tags = {
+
+  tags = {
     Name = "Vane_vpc"
   }
 }
